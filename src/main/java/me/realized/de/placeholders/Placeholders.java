@@ -111,6 +111,27 @@ public class Placeholders extends DuelsExtension implements Listener {
             return kit != null ? String.valueOf(user.getRating(kit)) : StringUtil.color(noKit);
         }
 
+        if (identifier.startsWith("user_")) {
+            user = userManager.get(player);
+
+            if (user == null) {
+                return StringUtil.color(userNotFound);
+            }
+
+            identifier = identifier.replace("user_", "");
+
+            if (identifier.equals("wins")) {
+                return String.valueOf(user.getWins());
+            }
+            if (identifier.equals("requests")) {
+                return String.valueOf(user.canRequest());
+            }
+            if (identifier.equals("losses")) {
+                return String.valueOf(user.getLosses());
+            }
+
+        }
+
         if (identifier.startsWith("match_")) {
             identifier = identifier.replace("match_", "");
             final Arena arena = arenaManager.get(player);
