@@ -146,8 +146,13 @@ public class Placeholders extends DuelsExtension implements Listener {
                 return StringUtil.color(notInMatch);
             }
 
-            if (identifier.equalsIgnoreCase("duration")) {
+            if (identifier.equalsIgnoreCase("elapsed_time")) {
                 return DurationFormatUtils.formatDuration(System.currentTimeMillis() - match.getStart(), durationFormat);
+            }
+
+            if (identifier.equalsIgnoreCase("remaining_time")) {
+                long maxTimeInMinutes = api.getConfig().getInt("duel.match.max-duration");
+                return DurationFormatUtils.formatDuration((match.getStart()+1000*60*maxTimeInMinutes) - System.currentTimeMillis(), durationFormat);
             }
 
             if (identifier.equalsIgnoreCase("kit")) {
